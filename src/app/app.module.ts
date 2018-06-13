@@ -8,8 +8,10 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
+
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { 
+  IgxCardModule,
 	IgxButtonModule,
 	IgxIconModule,
 	IgxLayoutModule,
@@ -17,8 +19,12 @@ import {
 	IgxRadioModule,
 	IgxRippleModule,
 	IgxSwitchModule,
-	IgxToggleModule
+  IgxToggleModule,
+  IgxInputGroupModule
  } from "igniteui-angular/main";
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login.service';
+import { SessionService } from './session.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDDAa3h1KO4LFHX9MRCNZ8259uztT8DIgk",
@@ -32,9 +38,12 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoginComponent
   ],
   imports: [
+    IgxCardModule,
+    IgxInputGroupModule,
     IgxToggleModule,
     IgxSwitchModule,
     IgxRippleModule,
@@ -49,7 +58,12 @@ export const firebaseConfig = {
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [AngularFireModule, AngularFireAuth],
+  providers: [
+    AngularFireModule, 
+    AngularFireAuth, 
+    LoginService, 
+    SessionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
