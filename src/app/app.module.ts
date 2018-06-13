@@ -9,10 +9,16 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
 import { SidebarComponent } from './sidebar/sidebar.component';
-
-import { IgxNavigationDrawerModule } from 'igniteui-angular/navigation-drawer';
-import { IgxButtonModule } from 'igniteui-angular/main';
-import { IgxIconModule } from 'igniteui-angular/main';
+import { 
+	IgxButtonModule,
+	IgxIconModule,
+	IgxLayoutModule,
+	IgxNavigationDrawerModule,
+	IgxRadioModule,
+	IgxRippleModule,
+	IgxSwitchModule,
+	IgxToggleModule
+ } from "igniteui-angular/main";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDDAa3h1KO4LFHX9MRCNZ8259uztT8DIgk",
@@ -29,6 +35,11 @@ export const firebaseConfig = {
     SidebarComponent
   ],
   imports: [
+    IgxToggleModule,
+    IgxSwitchModule,
+    IgxRippleModule,
+    IgxRadioModule,
+    IgxLayoutModule,
     IgxIconModule,
     IgxButtonModule,
     IgxNavigationDrawerModule,

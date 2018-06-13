@@ -1,21 +1,27 @@
-<!-- app.component.html -->
-<div class="content-wrap">
-  <igx-nav-drawer id="navigation" #drawer [isOpen]="true" pin="true">
+<div class="main" igxLayout>
+  <igx-nav-drawer id="navigation" [isOpen]="drawerState.open" [(pin)]="drawerState.pin">
     <ng-template igxDrawer>
       <nav>
-        <igx-icon fontSet="material" name="home"></igx-icon>
-        <span igxDrawerItem [isHeader]="true"> Usuário </span>
-        <span igxDrawerItem igxRipple> Visualizar Torneios </span>
-        <span igxDrawerItem igxRipple [active]="true"> Criar Novo Torneio </span>
-        <span igxDrawerItem igxRipple> Apagar Torneio </span>
-        <span igxDrawerItem igxRipple> Adicionar Participantes </span>
-        <span igxDrawerItem igxRipple> Excluir Participantes </span>
-        <span igxDrawerItem igxRipple> Gerar Partidas </span>
-      </nav>
+        <span igxDrawerItem [isHeader]="true">Go Game Cup</span>
+
+        <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple (click)="navigate(item)">
+          <igx-icon fontSet="material" name="{{ item.name }}"></igx-icon>
+          <span>{{ item.text }}</span>
+        </span>
+    </nav>
     </ng-template>
+
+    <ng-template igxDrawerMini *ngIf="drawerState.miniTemplate">
+        <nav>
+          <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple (click)="navigate(item)">
+            <igx-icon fontSet="material" name="{{ item.name }}"></igx-icon>
+          </span>
+      </nav>
+      </ng-template>
   </igx-nav-drawer>
-  <main>
-    <span igxButton="icon" igxToggleAction="navigation" (click)="drawer.toggle()" >
+
+  <main igxFlex [class.mini-padding]="!drawerState.pin && drawerState.miniTemplate">
+    <span igxButton="icon" igxToggleAction="navigation" [closeOnOutsideClick]="false">
       <igx-icon fontSet="material" name="menu"></igx-icon>
     </span>
   </main>
