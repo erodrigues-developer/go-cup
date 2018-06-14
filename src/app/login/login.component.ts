@@ -11,7 +11,9 @@ export class LoginComponent implements OnInit {
   public email: String;
   public senha: String;
 
-  constructor(private svc: LoginService) { }
+  constructor(private svc: LoginService) {
+    console.log(localStorage['token']);
+   }
 
   ngOnInit() {
   }
@@ -23,22 +25,33 @@ export class LoginComponent implements OnInit {
     
     let r;
     r = await this.svc.login(this.email, this.senha);
-    console.log('r ====== '+r);
 
     if (r){
-      console.log('retornou true');
+      console.log('chama a rota');
     }
     else {
-      console.log('retornou false');
+      console.log('exibe erros');
     }
+
+    console.log(localStorage['token']);
   }
 
   /**
    * Acionado quando o usuário clicar no botão registrar-se
    */
-  registrar() {
-    console.log("invocado método registrar");
-    this.svc.createUser(this.email, this.senha);
+  async registrar() {
+    
+    let r;
+    r = await this.svc.createUser(this.email, this.senha);
+
+    if (r){
+      console.log('usuário criado');
+    }
+    else {
+      console.log('falha ao criar');
+    }
+
+    console.log(localStorage['token']);
 
   }
 

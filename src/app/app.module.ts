@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { 
@@ -59,6 +60,7 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [
+    AngularFireDatabase,
     AngularFireModule, 
     AngularFireAuth, 
     LoginService, 
