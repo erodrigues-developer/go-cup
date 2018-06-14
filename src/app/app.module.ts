@@ -28,6 +28,8 @@ import {
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
 import { SessionService } from './session.service';
+import { AppRoutingModule } from './/app-routing.module';
+import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDDAa3h1KO4LFHX9MRCNZ8259uztT8DIgk",
@@ -42,7 +44,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     SidebarComponent,
-    LoginComponent
+    LoginComponent,
+    PaginaInicialComponent
   ],
   imports: [
     IgxNavbarModule,
@@ -61,7 +64,8 @@ export const firebaseConfig = {
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AppRoutingModule
   ],
   providers: [
     AngularFireDatabase,

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../login.service';
 import { IgxDialogComponent } from 'igniteui-angular/main';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,13 @@ export class LoginComponent implements OnInit {
   @ViewChild(IgxDialogComponent)
   public dialog: IgxDialogComponent;
 
-  constructor(private svc: LoginService) {
-    console.log(localStorage['token']);
+  constructor(private svc: LoginService, private rota: Router) {
+    if(localStorage['token'] != null){
+      this.rota.navigate(['']);
+    }
+    else{
+      this.rota.navigate(['/login']);
+    }
    }
 
   ngOnInit() {
@@ -39,7 +45,7 @@ export class LoginComponent implements OnInit {
     r = await this.svc.login(this.email, this.senha);
 
     if (r){
-      console.log('chama a rota');
+      this.rota.navigate(['']);
       this.title = "Sucesso";
       this.msg = "Usuário autenticado com sucesso";
       this.dialog.open();
