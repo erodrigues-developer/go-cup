@@ -3,13 +3,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) { }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private rota: Router) { }
 
   /**
    * Recebe os dados de login
@@ -36,6 +37,17 @@ export class LoginService {
     );
     
     return retorno;
+  }
+
+  /**
+   * Finaliza a sessão
+   */
+  async logout () {
+    
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.afAuth.auth.signOut();
   }
 
   /**
@@ -90,6 +102,45 @@ export class LoginService {
       }
     );
     
+    return retorno;
+  }
+
+  /**
+   * Verifica se existe uma sessão ativa
+   * E se a sessão expirou
+   */
+  async verificaToken(): Promise<any> {
+
+    let retorno = false;
+    let hora_atual;
+    let ultimo_login;    
+
+    if (localStorage['token'] == null){
+      console.log('faça login');
+      return false;
+    }
+
+    await this.db.database.ref( "usuarios/" + localStorage['token'] ).once( 'value').then(
+      r => {
+        ultimo_login = new Date(r.val().ultimo_login);
+        hora_atual = new Date();
+      }
+    ).catch(
+      e => {
+        console.log(e.val());
+      }
+    );
+
+    let tempoLogado = Math.abs(hora_atual - ultimo_login) / 36e5;
+
+    if (tempoLogado < 2){
+      retorno = true;
+    }
+    else {
+      this.logout();
+      retorno = false;
+    }
+
     return retorno;
   }
 }

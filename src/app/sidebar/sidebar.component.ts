@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
   
   public drawerState = {
     miniTemplate: true,
-    open: true,
+    open: false,
     pin: false
   };
   

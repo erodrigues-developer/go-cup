@@ -20,15 +20,20 @@ export class LoginComponent implements OnInit {
   public dialog: IgxDialogComponent;
 
   constructor(private svc: LoginService, private rota: Router) {
-    if(localStorage['token'] != null){
-      this.rota.navigate(['']);
-    }
-    else{
-      this.rota.navigate(['/login']);
-    }
-   }
+    this.auth();
+  }
 
   ngOnInit() {
+  }
+
+  private async auth(){
+    let logado;
+
+    logado = await this.svc.verificaToken();
+
+    if (logado) {
+      this.rota.navigate([''])
+    }
   }
 
   /**
