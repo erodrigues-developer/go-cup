@@ -19,10 +19,9 @@
       </nav>
       </ng-template>
   </igx-nav-drawer>
-
-  <main igxFlex [class.mini-padding]="!drawerState.pin && drawerState.miniTemplate">
+  <igx-navbar style="width: 100%;">
     <span igxButton="icon" igxToggleAction="navigation" [closeOnOutsideClick]="false">
       <igx-icon fontSet="material" name="menu"></igx-icon>
     </span>
-  </main>
+  </igx-navbar>
 </div>
