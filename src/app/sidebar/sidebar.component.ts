@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
 
   
   public navItems = [
-    { name: "account_circle", text: "Usuário" },
+    { name: "account_circle", text: localStorage['user'] },
     { name: "home", text: "Página Inicial" },
     { name: "games", text: "Criar Torneio" },
     { name: "sentiment_very_satisfied", text: "Adicionar Participantes" },

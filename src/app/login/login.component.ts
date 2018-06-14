@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit {
 
     if (r){
       console.log('chama a rota');
+      this.title = "Sucesso";
+      this.msg = "Usuário autenticado com sucesso";
+      this.dialog.open();
     }
     else {
       console.log('exibe erros');
@@ -66,6 +69,9 @@ export class LoginComponent implements OnInit {
 
     if (r){
       console.log('usuário criado');
+      this.title = "Sucesso";
+      this.msg = "O usuário foi criado com sucesso";
+      this.dialog.open();
     }
     else {
       console.log('falha ao criar');
