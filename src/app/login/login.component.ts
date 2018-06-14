@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../login.service';
+import { IgxDialogComponent } from 'igniteui-angular/main';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,12 @@ export class LoginComponent implements OnInit {
 
   public email: String;
   public senha: String;
+
+  msg = '';
+  title = '';
+
+  @ViewChild(IgxDialogComponent)
+  public dialog: IgxDialogComponent;
 
   constructor(private svc: LoginService) {
     console.log(localStorage['token']);
@@ -22,6 +29,11 @@ export class LoginComponent implements OnInit {
    * Acionado quando o usuário clicar no botão logar
    */
   async logar() {
+
+    if (this.email == "" || this.email == null || 
+        this.senha == "" || this.senha == null) {
+      return false;
+    }
     
     let r;
     r = await this.svc.login(this.email, this.senha);
@@ -31,6 +43,9 @@ export class LoginComponent implements OnInit {
     }
     else {
       console.log('exibe erros');
+      this.title = "Falha ao tentar fazer login";
+      this.msg = "Verifique os dados e tente novamente.";    
+      this.dialog.open();
     }
 
     console.log(localStorage['token']);
@@ -40,6 +55,11 @@ export class LoginComponent implements OnInit {
    * Acionado quando o usuário clicar no botão registrar-se
    */
   async registrar() {
+
+    if (this.email == "" || this.email == null || 
+        this.senha == "" || this.senha == null) {
+      return false;
+    }
     
     let r;
     r = await this.svc.createUser(this.email, this.senha);
@@ -49,6 +69,9 @@ export class LoginComponent implements OnInit {
     }
     else {
       console.log('falha ao criar');
+      this.title = "Falha ao tentar criar usuário";
+      this.msg = "Verifique os dados e tente novamente.";
+      this.dialog.open();
     }
 
     console.log(localStorage['token']);

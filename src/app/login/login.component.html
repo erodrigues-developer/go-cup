@@ -1,22 +1,40 @@
-<igx-card>
+<div class="container-fluid">
+<div class="row pai">
+
+<igx-card class="col-12 col-sm-8 col-md-8 col-lg-8 filho">
   <igx-card-header class="compact">
     <h3 class="igx-card-header__title">Bem vindo</h3>
-    <h5 class="igx-card-header__subtitle">Faça login ou registre-se</h5>
+    <h5 class="igx-card-header__subtitle">Faça login ou cadastre-se</h5>
   </igx-card-header>
   <igx-card-content>
     <form (ngSubmit)="logar()" #f="ngForm">
       <igx-input-group>
-        <input igxInput name="email" type="email" [(ngModel)]="email"/>
+        <igx-prefix>
+            <igx-icon>person</igx-icon>
+        </igx-prefix>
+        <input igxInput name="email" type="email" [(ngModel)]="email" required/>
         <label igxLabel for="email">Email</label>
       </igx-input-group>
       <igx-input-group>
-        <input igxInput name="senha" type="password" [(ngModel)]="senha"/>
+        <igx-prefix>
+            <igx-icon>lock</igx-icon>
+        </igx-prefix>
+        <input igxInput name="senha" type="password" [(ngModel)]="senha" required/>
         <label igxLabel for="senha">Senha</label>
       </igx-input-group>
       <div class="row" style="margin-top:15px;">
-        <button igxButton="raised" igxRipple="white" igxButtonBackground="#000" style="margin-right: 10px;" type="submit">Logar</button>
-        <span igxButton="raised" igxRipple="white" igxButtonBackground="#000" (click)="registrar()">Registrar-se</span>
+        <button igxButton="raised" igxRipple="white" igxButtonBackground="Teal" style="margin: 5px;" type="submit">Entrar</button>
+        <span igxButton="raised" igxRipple="white" igxButtonBackground="Green" style="margin: 5px;" (click)="registrar()">Cadastrar</span>
       </div> 
     </form>
   </igx-card-content>
 </igx-card>
+
+</div>
+</div>
+<igx-dialog #alert
+    title="{{title}}"
+    message="{{msg}}"
+    leftButtonLabel="OK"
+    (onLeftButtonSelect)="alert.close()">
+</igx-dialog>
