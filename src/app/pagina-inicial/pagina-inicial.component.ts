@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { IgxNavigationDrawerComponent } from "igniteui-angular/main";
 import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -9,32 +10,51 @@ import { LoginService } from '../login.service';
 })
 export class PaginaInicialComponent implements OnInit {
 
-  torneios = [
-    {id: 1, name: 'Torneio 1'},
-    {id: 2, name: 'Torneio 2'},
-    {id: 3, name: 'Torneio 3'},
-    {id: 4, name: 'Torneio 4'},
-    {id: 5, name: 'Torneio 5'},
-    {id: 6, name: 'Torneio 6'},
-    {id: 7, name: 'Torneio 7'},
-    {id: 8, name: 'Torneio 8'},
-    {id: 9, name: 'Torneio 9'},
+  public navItems = [
+    { name: "account_circle", text: localStorage['user'], route: "" },
+    { name: "home", text: "Página Inicial", route: "" },
+    { name: "games", text: "Criar Torneio", route: "" },
+    { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "" },
+    { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
+    { name: "no_encryption", text: "Encerrar Incrições", route: "" },
+    { name: "delete_forever", text: "Apagar Torneio", route: "" },
+    { name: "casino", text: "Inserir Resultado Partida", route: "" },
+    { name: "extension", text: "Alterar Resultado Partida", route: "" },
+    { name: "exit_to_app", text: "Sair", route: "/login" }
   ];
-
-  constructor(private svc: LoginService, private rota: Router) {
+  public selected = "Avatar";
+  
+  @ViewChild(IgxNavigationDrawerComponent)
+  public drawer: IgxNavigationDrawerComponent;
+  
+  public drawerState = {
+    miniTemplate: true,
+    open: false,
+    pin: false
+  };
+  
+  /** Select item and close drawer if not pinned */
+  public navigate(item) {
+    this.selected = item.text;
+    if (!this.drawer.pin) {
+      this.drawer.close();
+    }
+    console.log(item.route);
+  }
+  constructor(private svc: LoginService, private rota: Router) { 
     this.auth();
   }
 
   private async auth(){
     let logado;
+
     logado = await this.svc.verificaToken();
 
     if (!logado) {
-      this.rota.navigate(['login'])
+      this.rota.navigate(['/login'])
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

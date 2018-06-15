@@ -10,7 +10,6 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { 
   IgxListModule,
   IgxAvatarModule,
@@ -45,7 +44,6 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
     LoginComponent,
     PaginaInicialComponent
   ],

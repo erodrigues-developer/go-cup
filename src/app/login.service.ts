@@ -132,9 +132,9 @@ export class LoginService {
     let retorno = false;
     let hora_atual;
     let ultimo_login;    
+    let tempoLogado;
 
     if (localStorage['token'] == null){
-      console.log('faça login');
       return false;
     }
 
@@ -142,14 +142,15 @@ export class LoginService {
       r => {
         ultimo_login = new Date(r.val().ultimo_login);
         hora_atual = new Date();
+        tempoLogado = Math.abs(hora_atual - ultimo_login) / 36e5;
       }
     ).catch(
       e => {
-        console.log(e.val());
+        this.logout();
+        retorno = false;
       }
     );
 
-    let tempoLogado = Math.abs(hora_atual - ultimo_login) / 36e5;
 
     if (tempoLogado < 2){
       retorno = true;
