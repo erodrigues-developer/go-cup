@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: '' , component: ListaTorneiosComponent, children: [ 
       { path: 'detalhe-torneio/:id', component: DetalheTorneioComponent },
       { path: 'form-torneios', component: FormTorneiosComponent },
-      { path: 'from-participantes', component: FormParticipantesComponent }
+      { path: 'form-participantes', component: FormParticipantesComponent }
     ]}
   ]}
 ];

@@ -12,9 +12,9 @@ export class PaginaInicialComponent implements OnInit {
 
   public navItems = [
     { name: "account_circle", text: localStorage['user'], route: "" },
-    { name: "home", text: "Página Inicial", route: "" },
-    { name: "games", text: "Criar Torneio", route: "" },
-    { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "" },
+    { name: "home", text: "Página Inicial", route: "/pagina-inicial" },
+    { name: "games", text: "Criar Torneio", route: "/pagina-inicial/form-torneios" },
+    { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "/pagina-inicial/form-torneios" },
     { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
     { name: "no_encryption", text: "Encerrar Incrições", route: "" },
     { name: "delete_forever", text: "Apagar Torneio", route: "" },
@@ -40,6 +40,7 @@ export class PaginaInicialComponent implements OnInit {
       this.drawer.close();
     }
     console.log(item.route);
+    this.rota.navigate([item.route]);
   }
   constructor(private svc: LoginService, private rota: Router) { 
     this.auth();
