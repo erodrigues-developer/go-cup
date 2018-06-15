@@ -31,6 +31,10 @@ import { LoginService } from './login.service';
 import { SessionService } from './session.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
+import { ListaTorneiosComponent } from './pagina-inicial/torneios/lista-torneios/lista-torneios.component';
+import { FormTorneiosComponent } from './pagina-inicial/torneios/form-torneios/form-torneios.component';
+import { FormParticipantesComponent } from './pagina-inicial/torneios/form-participantes/form-participantes.component';
+import { DetalheTorneioComponent } from './pagina-inicial/torneios/detalhe-torneio/detalhe-torneio.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDDAa3h1KO4LFHX9MRCNZ8259uztT8DIgk",
@@ -45,7 +49,11 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    PaginaInicialComponent
+    PaginaInicialComponent,
+    ListaTorneiosComponent,
+    FormTorneiosComponent,
+    FormParticipantesComponent,
+    DetalheTorneioComponent
   ],
   imports: [
     IgxListModule,
