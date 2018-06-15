@@ -7,13 +7,20 @@ html, body {
     min-height: 100%;
 }
 
-.pai, .container, app-login, app-root {
-    height: 100%;
-    min-height: 100%;
+.pai {
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
+}
+
+.container, app-login, app-root {
+    height: 100%;
+    min-height: 100%;    
+}
+
+app-pagina-inicial {
+    width: 100%;
 }

@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
   public drawerState = {
     miniTemplate: true,
     open: false,
-    pin: false
+    pin: true
   };
   
   /** Select item and close drawer if not pinned */
@@ -43,6 +43,9 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.drawer.pin = true;
+    this.drawer.open;
+    this.drawer.miniTemplate;
   }
   
 }

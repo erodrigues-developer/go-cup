@@ -12,6 +12,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { 
+  IgxListModule,
+  IgxAvatarModule,
   IgxNavbarModule,
   IgxDialogModule,
   IgxCardModule,
@@ -48,6 +50,8 @@ export const firebaseConfig = {
     PaginaInicialComponent
   ],
   imports: [
+    IgxListModule,
+    IgxAvatarModule,
     IgxNavbarModule,
     IgxDialogModule,
     IgxCardModule,

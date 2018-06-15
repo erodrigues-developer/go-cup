@@ -26,8 +26,12 @@ export class LoginService {
 
     await this.afAuth.auth.signInWithEmailAndPassword(mail, senha).then(
       response => {
-        localStorage['token'] = this.afAuth.auth.currentUser.uid;
-        localStorage['user'] = this.afAuth.auth.currentUser.email;
+
+        localStorage.setItem('token', this.afAuth.auth.currentUser.uid);
+        localStorage.setItem('user', this.afAuth.auth.currentUser.email);
+
+        this.log();
+
         retorno = true;
       }
     ).catch(
@@ -51,6 +55,21 @@ export class LoginService {
   }
 
   /**
+   * Atualiza o horário do último login do usuário
+   */
+  private log () {
+
+    let ref = this.db.createPushId()
+
+    this.db.object("usuarios/" + localStorage['token'] + "/").update(
+      {
+        ultimo_login: new Date()
+      }
+    );
+
+  }
+
+  /**
    * Recebe os dados e instancia o firebase auth
    * Cria o usuário no firebase
    * Em seguida cria um diretório no db para esse usuário
@@ -71,7 +90,6 @@ export class LoginService {
     )
     .catch(
       r => {
-        console.log(r);
         retorno = false;
       }
     );

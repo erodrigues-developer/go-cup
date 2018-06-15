@@ -61,8 +61,6 @@ export class LoginComponent implements OnInit {
       this.msg = "Verifique os dados e tente novamente.";    
       this.dialog.open();
     }
-
-    console.log(localStorage['token']);
   }
 
   /**
@@ -90,8 +88,6 @@ export class LoginComponent implements OnInit {
       this.msg = "Verifique os dados e tente novamente.";
       this.dialog.open();
     }
-
-    console.log(localStorage['token']);
 
   }
 
