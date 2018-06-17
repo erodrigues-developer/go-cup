@@ -133,7 +133,7 @@ export class LoginService {
     let hora_atual;
     let ultimo_login;    
     let tempoLogado;
-
+    
     if (localStorage['token'] == null){
       return false;
     }
@@ -153,6 +153,7 @@ export class LoginService {
 
 
     if (tempoLogado < 2){
+      this.log();
       retorno = true;
     }
     else {

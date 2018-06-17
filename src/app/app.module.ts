@@ -36,6 +36,7 @@ import { ListaTorneiosComponent } from './pagina-inicial/torneios/lista-torneios
 import { FormTorneiosComponent } from './pagina-inicial/torneios/form-torneios/form-torneios.component';
 import { FormParticipantesComponent } from './pagina-inicial/torneios/form-participantes/form-participantes.component';
 import { DetalheTorneioComponent } from './pagina-inicial/torneios/detalhe-torneio/detalhe-torneio.component';
+import { TorneiosService } from './torneios.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDDAa3h1KO4LFHX9MRCNZ8259uztT8DIgk",
@@ -84,7 +85,8 @@ export const firebaseConfig = {
     AngularFireModule, 
     AngularFireAuth, 
     LoginService, 
-    SessionService
+    SessionService,
+    TorneiosService
   ],
   bootstrap: [AppComponent]
 })
