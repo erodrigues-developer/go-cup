@@ -24,3 +24,13 @@ html, body {
 app-pagina-inicial {
     width: 100%;
 }
+
+@media (max-width: 576px) {
+    main.mini-padding[_ngcontent-c1] {
+        padding: 1rem calc(1rem + 60px);
+        padding-top: 1rem;
+        padding-right: calc(1rem);
+        padding-bottom: 1rem;
+        padding-left: calc(1rem + 60px);
+    }
+}

@@ -43,6 +43,9 @@ export class LoginComponent implements OnInit {
 
     if (this.email == "" || this.email == null || 
         this.senha == "" || this.senha == null) {
+      this.title = "Falha";
+      this.msg = "Insira os dados para fazer login";
+      this.dialog.open();
       return false;
     }
     
@@ -70,6 +73,9 @@ export class LoginComponent implements OnInit {
 
     if (this.email == "" || this.email == null || 
         this.senha == "" || this.senha == null) {
+      this.title = "Falha";
+      this.msg = "Insira os dados para fazer o cadastro";
+      this.dialog.open();
       return false;
     }
     

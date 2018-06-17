@@ -11,6 +11,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { 
+  IgxGridModule,
   IgxListModule,
   IgxAvatarModule,
   IgxNavbarModule,
@@ -56,6 +57,7 @@ export const firebaseConfig = {
     DetalheTorneioComponent
   ],
   imports: [
+    IgxGridModule.forRoot(),
     IgxListModule,
     IgxAvatarModule,
     IgxNavbarModule,

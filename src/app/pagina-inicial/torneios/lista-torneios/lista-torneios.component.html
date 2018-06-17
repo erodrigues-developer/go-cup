@@ -1,3 +1,21 @@
-<p>
-  lista-torneios works!
-</p>
+<div class="container">
+  <div class="row justify-content-md-center" style="margin-bottom: 30px">
+    <div class="col-sm-12">
+      <igx-card style="width: 100px;">
+        <igx-card-header>
+          <h3 class="igx-card-header__title">Lista de Torneios</h3>
+          <h5 class="igx-card-header__subtitle">Página Inicial</h5>
+        </igx-card-header>
+      </igx-card>      
+    </div>
+  </div>
+  <div class="row justify-content-md-center" style="margin-bottom: 30px; height: 300px;">
+    <div class="col-sm-12">
+      <igx-grid #grid1 id="grid1" [data]="torneios" [autoGenerate]="false" [paging]="true" [perPage]="4" [rowSelectable]="true">
+        <igx-column field="id" header="Id" [sortable]="true"></igx-column>
+        <igx-column field="nome" header="Nome" [sortable]="true" [filterable]="true"></igx-column>
+        <igx-column field="url" header="URL" [sortable]="true"></igx-column>
+      </igx-grid>   
+    </div>
+  </div>
+</div>
