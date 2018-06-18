@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { LoginService } from '../../../login.service';
 import { Router } from '@angular/router';
 import { NgForm, NgModel, NgControl } from '@angular/forms';
-import { IgxInputGroupComponent } from 'igniteui-angular/main';
+import { IgxInputGroupComponent, IgxDialogComponent } from 'igniteui-angular/main';
 import { TorneiosService } from '../../../torneios.service';
 
 @Component({
@@ -11,12 +11,18 @@ import { TorneiosService } from '../../../torneios.service';
   styleUrls: ['./form-torneios.component.css']
 })
 export class FormTorneiosComponent implements OnInit {
+
+  @ViewChild(IgxDialogComponent)
+  public dialog: IgxDialogComponent;
   
   public id;
   public nome;
   public url;
   public key;
 
+  public title;
+  public msg;
+  
   constructor(private svc: LoginService, private rota: Router, private torneio: TorneiosService) { 
     this.auth();
   }
@@ -44,11 +50,30 @@ export class FormTorneiosComponent implements OnInit {
   }
 
   private async salvar(){
+
+    if ( this.nome == "" || this.nome == null ||
+        this.url == "" || this.url == null ){
+      
+      this.title = "Falha";
+      this.msg = "Insira os dados para criar o torneio";
+      this.dialog.open();
+      return false;
+    }
+
     let r = false;
 
     r = await this.torneio.salvar(this.nome, this.url);
 
-    console.log(r);
+    if (r) {
+      this.title = "Sucesso";
+      this.msg = "Torneio criado com sucesso";
+      this.dialog.open();
+    }
+    else {
+      this.title = "Falha";
+      this.msg = "Falha ao criar o torneio";
+      this.dialog.open();
+    }
   }
 
   ngOnInit() {
