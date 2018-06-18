@@ -10,11 +10,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/pagina-inicial', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'pagina-inicial', component: PaginaInicialComponent, children: [
-    { path: '' , component: ListaTorneiosComponent, children: [ 
-      { path: 'detalhe-torneio/:id', component: DetalheTorneioComponent },
-      { path: 'form-torneios', component: FormTorneiosComponent },
-      { path: 'form-participantes', component: FormParticipantesComponent }
-    ]}
+    { path: '' , component: ListaTorneiosComponent },
+    { path: 'detalhe-torneio/:id', component: DetalheTorneioComponent },
+    { path: 'form-torneios', component: FormTorneiosComponent },
+    { path: 'form-participantes', component: FormParticipantesComponent }
+    
   ]}
 ];
 
