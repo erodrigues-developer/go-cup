@@ -1,3 +1,49 @@
-<p>
-  form-participantes works!
-</p>
+<div class="container">
+  <div class="row justify-content-md-center" style="margin-bottom: 30px">
+    <div class="col-sm-12">
+      <igx-card style="width: 100px;">
+        <igx-card-header>
+          <h3 class="igx-card-header__title">Formulário de Participantes</h3>
+          <h5 class="igx-card-header__subtitle">Cadastro de Participantes ao Torneio</h5>
+        </igx-card-header>
+      </igx-card>      
+    </div>
+  </div>
+  <div class="row justify-content-md-center" style="margin-bottom: 30px; height: 300px;">
+    <div class="col-sm-12">
+      <igx-card>
+        <igx-card-header>
+          <h5 class="igx-card-header__subtitle">Preencha os dados do participante abaixo</h5>
+        </igx-card-header>
+        <igx-card-content>
+          <form #f="ngForm" (ngSubmit)="salvar()">
+            <igx-input-group>
+              <igx-prefix>
+                  <igx-icon>games</igx-icon>
+              </igx-prefix>
+              <input igxInput name="nome" type="text" [(ngModel)]="nome" required #v (keyup)="criarUrl(v.value, u)"/>
+              <label igxLabel for="nome">Nome do Torneio</label>
+            </igx-input-group>
+            <igx-input-group  #u>
+              <igx-prefix>
+                  <igx-icon>link</igx-icon>
+              </igx-prefix>
+              <input igxInput name="url" type="text" [(ngModel)]="url" required/>
+              <label igxLabel for="url">URL do Torneio</label>
+            </igx-input-group>
+            <div class="row" style="margin-top:15px;">
+              <button igxButton="raised" igxRipple="white" igxButtonBackground="Teal" style="margin: 5px;" type="submit">Salvar</button>
+              <button igxButton="raised" igxRipple="white" igxButtonBackground="Coral" style="margin: 5px;" type="reset">Limpar</button>
+            </div> 
+          </form>
+        </igx-card-content>
+      </igx-card>
+    </div>
+  </div>
+</div>
+<igx-dialog #alert
+    title="{{title}}"
+    message="{{msg}}"
+    leftButtonLabel="OK"
+    (onLeftButtonSelect)="alert.close()">
+</igx-dialog>

@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { IgxNavigationDrawerComponent } from "igniteui-angular/main";
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { TorneiosService } from '../torneios.service';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -10,18 +12,12 @@ import { Router } from '@angular/router';
 })
 export class PaginaInicialComponent implements OnInit {
 
-  public navItems = [
-    { name: "account_circle", text: localStorage['user'], route: "" },
-    { name: "home", text: "Página Inicial", route: "/pagina-inicial" },
-    { name: "games", text: "Criar Torneio", route: "/pagina-inicial/form-torneios" },
-    { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "/pagina-inicial/form-torneios" },
-    { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
-    { name: "no_encryption", text: "Encerrar Incrições", route: "" },
-    { name: "delete_forever", text: "Apagar Torneio", route: "" },
-    { name: "casino", text: "Inserir Resultado Partida", route: "" },
-    { name: "extension", text: "Alterar Resultado Partida", route: "" },
-    { name: "exit_to_app", text: "Sair", route: "/login" }
-  ];
+  sub: Subscription;
+  
+  @Input()
+  public idTorneio = "";
+
+  public navItems;
   public selected = "Avatar";
   
   @ViewChild(IgxNavigationDrawerComponent)
@@ -40,10 +36,20 @@ export class PaginaInicialComponent implements OnInit {
       this.drawer.close();
     }
     console.log(item.route);
-    this.rota.navigate([item.route]);
+
+    if (item.route != "/pagina-inicial/form-participantes/"){
+      this.rota.navigate([item.route]);
+    }
   }
-  constructor(private svc: LoginService, private rota: Router) { 
+  constructor(private svc: LoginService, private rota: Router, private torneio: TorneiosService) { 
     this.auth();
+
+    this.sub = this.torneio.getIdTorneioSelecionado().subscribe(
+      r => {
+        this.setIdTorneio(r);
+      }
+    )
+    
   }
 
   private async auth(){
@@ -56,6 +62,30 @@ export class PaginaInicialComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  setIdTorneio(id){
+    
+    this.idTorneio = id;
+
+    this.setMenu();    
+  }
+
+  ngOnInit() {
+    this.setMenu();
+  }
+
+  setMenu(){
+    this.navItems = [
+      { name: "account_circle", text: localStorage['user'], route: "" },
+      { name: "home", text: "Página Inicial", route: "/pagina-inicial" },
+      { name: "games", text: "Criar Torneio", route: "/pagina-inicial/form-torneios" },
+      { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "/pagina-inicial/form-participantes/" + this.idTorneio },
+      { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
+      { name: "no_encryption", text: "Encerrar Incrições", route: "" },
+      { name: "delete_forever", text: "Apagar Torneio", route: "" },
+      { name: "casino", text: "Inserir Resultado Partida", route: "" },
+      { name: "extension", text: "Alterar Resultado Partida", route: "" },
+      { name: "exit_to_app", text: "Sair", route: "/login" }
+    ];
+  }
 
 }

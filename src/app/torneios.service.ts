@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpResponse } from 'selenium-webdriver/http';
 
@@ -8,6 +8,16 @@ import { HttpResponse } from 'selenium-webdriver/http';
   providedIn: 'root'
 })
 export class TorneiosService {
+
+  private idTorneioSelecionado = new Subject<String>();
+
+  setIdTorneioSelecionado(id) {
+    this.idTorneioSelecionado.next(id);
+  }
+
+  getIdTorneioSelecionado(): Observable<String> {
+    return this.idTorneioSelecionado.asObservable();
+  }
 
   url_api = "";
 

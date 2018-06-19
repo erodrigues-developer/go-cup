@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { TorneiosService } from '../../../torneios.service';
 import { LoginService } from '../../../login.service';
 import { Router } from '@angular/router';
+import { IgxGridCellComponent } from 'igniteui-angular/grid/cell.component';
+import { IgxGridComponent } from 'igniteui-angular/grid/grid.component';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-lista-torneios',
@@ -9,6 +12,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-torneios.component.css']
 })
 export class ListaTorneiosComponent implements OnInit {
+  @ViewChild("grid1")
+  public grid1: IgxGridComponent;
+  public selection = true;
+
+  public idTorneio = "";
+  
+  @Output()
+  public idSetado = new EventEmitter();
 
   torneios = [];
 
@@ -37,5 +48,17 @@ export class ListaTorneiosComponent implements OnInit {
 
     this.torneios = v;
   }
+
+  public handleRowSelection(args) {
+    const targetCell = args.cell as IgxGridCellComponent;
+    if (!this.selection) {
+        this.grid1.selectRows([targetCell.row.rowID], true);
+        // console.log(targetCell.row);
+    }
+    // console.log(targetCell.row.rowID.id);
+    this.idTorneio = targetCell.row.rowID.id;
+    this.torneio.setIdTorneioSelecionado(this.idTorneio);
+    // console.log(this.idTorneio);
+}
 
 }

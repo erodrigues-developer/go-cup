@@ -11,7 +11,8 @@
   </div>
   <div class="row justify-content-md-center" style="margin-bottom: 30px; height: 300px;">
     <div class="col-sm-12">
-      <igx-grid #grid1 id="grid1" [data]="torneios" [autoGenerate]="false" [paging]="true" [perPage]="5" [rowSelectable]="true">
+      <igx-grid #grid1 id="grid1" [data]="torneios" [autoGenerate]="false" [paging]="true" [perPage]="5" 
+      [rowSelectable]="false" (onSelection)="handleRowSelection($event)">
         <igx-column field="id" header="Id" [sortable]="true"></igx-column>
         <igx-column field="nome" header="Nome" [sortable]="true" [filterable]="true"></igx-column>
         <igx-column field="url" header="URL" [sortable]="true"></igx-column>
