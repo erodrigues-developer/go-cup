@@ -21,15 +21,15 @@
               <igx-prefix>
                   <igx-icon>games</igx-icon>
               </igx-prefix>
-              <input igxInput name="nome" type="text" [(ngModel)]="nome" required #v (keyup)="criarUrl(v.value, u)"/>
+              <input igxInput name="nome" type="text" [(ngModel)]="nome" required readonly="true"/>
               <label igxLabel for="nome">Nome do Torneio</label>
             </igx-input-group>
-            <igx-input-group  #u>
+            <igx-input-group>
               <igx-prefix>
-                  <igx-icon>link</igx-icon>
+                  <igx-icon>mood</igx-icon>
               </igx-prefix>
-              <input igxInput name="url" type="text" [(ngModel)]="url" required/>
-              <label igxLabel for="url">URL do Torneio</label>
+              <input igxInput name="participante" type="text" [(ngModel)]="participante" required />
+              <label igxLabel for="participante">Nome do Participante</label>
             </igx-input-group>
             <div class="row" style="margin-top:15px;">
               <button igxButton="raised" igxRipple="white" igxButtonBackground="Teal" style="margin: 5px;" type="submit">Salvar</button>

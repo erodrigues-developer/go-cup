@@ -29,6 +29,22 @@ export class PaginaInicialComponent implements OnInit {
     pin: false
   };
   
+  constructor(private svc: LoginService, private rota: Router, private torneio: TorneiosService) { 
+  }
+  
+  ngOnInit() {
+    this.auth();
+  
+    this.sub = this.torneio.getIdTorneioSelecionado().subscribe(
+      r => {
+        this.setIdTorneio(r);
+      }
+    )    
+    this.setMenu();
+  }
+
+
+
   /** Select item and close drawer if not pinned */
   public navigate(item) {
     this.selected = item.text;
@@ -40,16 +56,6 @@ export class PaginaInicialComponent implements OnInit {
     if (item.route != "/pagina-inicial/form-participantes/"){
       this.rota.navigate([item.route]);
     }
-  }
-  constructor(private svc: LoginService, private rota: Router, private torneio: TorneiosService) { 
-    this.auth();
-
-    this.sub = this.torneio.getIdTorneioSelecionado().subscribe(
-      r => {
-        this.setIdTorneio(r);
-      }
-    )
-    
   }
 
   private async auth(){
@@ -67,10 +73,6 @@ export class PaginaInicialComponent implements OnInit {
     this.idTorneio = id;
 
     this.setMenu();    
-  }
-
-  ngOnInit() {
-    this.setMenu();
   }
 
   setMenu(){

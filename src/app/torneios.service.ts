@@ -48,6 +48,25 @@ export class TorneiosService {
     return value;
   }
 
+  async getTorneioId(id): Promise<any[]> {
+    let value: any = [];
+
+    this.url_api = '/v1/tournaments/' + id + '.json'+
+                                '?api_key=HFQp64rnt3zSP216dLZ1A3KmIXjkyCHf66W4bwAu';
+    await this.http.get(this.url_api, {}).toPromise().then(
+      r => {
+        value = r;
+      }
+    ).catch(
+      e => {
+        console.log(e);
+      }
+    )
+    // console.log(value);
+
+    return value;
+  }
+
   async salvar(nome, url): Promise<any> {
     let retorno = false;
 
@@ -71,7 +90,51 @@ export class TorneiosService {
     return retorno;
   }
 
+  async addParticipante(id, nome): Promise<any> {
+    let retorno = false;
+
+    this.url_api = '/v1/tournaments/' + id + '/participants.json'+
+                                '?api_key=HFQp64rnt3zSP216dLZ1A3KmIXjkyCHf66W4bwAu'+
+                                '&participant[name]='+nome;
+    await this.http.post(this.url_api, {}).toPromise().then(
+      r => {
+        //console.log(r);
+        this.salvarFirebaseParticipante(r);
+        retorno = true;
+      }
+    ).catch(
+      e => {
+        retorno = false;
+        console.log(e);
+      }
+    )
+
+    return retorno;
+  }
+
   private async salvarFirebase(v: any): Promise<any>{
+    let ret = false;
+
+    let dados = {
+      id: v.tournament.id,
+      nome:  v.tournament.name,
+      url: v.tournament.url,
+      link:  v.tournament.full_challonge_url
+    };
+
+    await this.db.list("usuarios/" + localStorage.token + "/torneios").push(dados).then(
+      r => {
+        ret = true;
+      },
+      e=> {
+        ret = false;
+      }
+    );
+    
+    return ret;
+  }
+
+  private async salvarFirebaseParticipante(v: any): Promise<any>{
     let ret = false;
 
     let dados = {

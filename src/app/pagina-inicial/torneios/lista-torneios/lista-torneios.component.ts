@@ -24,7 +24,11 @@ export class ListaTorneiosComponent implements OnInit {
   torneios = [];
 
   constructor(private svc: LoginService, private rota: Router, private torneio: TorneiosService) { 
+  }
+  
+  ngOnInit() {
     this.auth();
+    this.get();
   }
 
   private async auth(){
@@ -37,9 +41,6 @@ export class ListaTorneiosComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.get();
-  }
 
   private async get(){
     let v;
