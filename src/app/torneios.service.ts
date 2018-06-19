@@ -51,7 +51,7 @@ export class TorneiosService {
   async salvar(nome, url): Promise<any> {
     let retorno = false;
 
-    this.url_api = 'https://api.challonge.com/v1/tournaments.json'+
+    this.url_api = '/v1/tournaments.json'+
                                 '?api_key=HFQp64rnt3zSP216dLZ1A3KmIXjkyCHf66W4bwAu'+
                                 '&tournament[name]='+nome+
                                 '&tournament[url]='+url;
