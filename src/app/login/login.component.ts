@@ -53,10 +53,11 @@ export class LoginComponent implements OnInit {
     r = await this.svc.login(this.email, this.senha);
 
     if (r){
-      this.rota.navigate(['']);
+      // this.rota.navigate(['']);
       this.title = "Sucesso";
       this.msg = "Usuário autenticado com sucesso";
       this.dialog.open();
+      window.location.href = "http://localhost:4200/pagina-inicial";
     }
     else {
       console.log('exibe erros');
