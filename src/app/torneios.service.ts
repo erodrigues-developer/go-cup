@@ -8,21 +8,52 @@ import { HttpResponse } from 'selenium-webdriver/http';
   providedIn: 'root'
 })
 export class TorneiosService {
+  
+  url_api = "";
 
   private idTorneioSelecionado = new Subject<String>();
+  private keyTorneioSelecionado = new Subject<String>();
 
+  
+  constructor(private db: AngularFireDatabase, private http: HttpClient) { }
+
+  /**
+   * Serviço responsável por setar o id do torneio selecionado na lista
+   * da página inicial
+   * @param id 
+   */
   setIdTorneioSelecionado(id) {
     this.idTorneioSelecionado.next(id);
   }
 
+  /**
+   * Serviço responsável por obter o id do torneio selecionado na lista
+   * da página inicial
+   */
   getIdTorneioSelecionado(): Observable<String> {
     return this.idTorneioSelecionado.asObservable();
   }
 
-  url_api = "";
+  /**
+   * Serviço responsável por setar o id do torneio selecionado na lista
+   * da página inicial
+   * @param key 
+   */
+  setKeyTorneioSelecionado(key) {
+    this.keyTorneioSelecionado.next(key);
+  }
 
-  constructor(private db: AngularFireDatabase, private http: HttpClient) { }
+  /**
+   * Serviço responsável por obter o id do torneio selecionado na lista
+   * da página inicial
+   */
+  getKeyTorneioSelecionado(): Observable<String> {
+    return this.keyTorneioSelecionado.asObservable();
+  }
 
+  /**
+   * Responsável por buscar os dados na base dados do firebase
+   */
   async getTorneios():Promise<any[]>{
     let v = [];
     await this.db.database.ref( "usuarios/" + localStorage['token'] + "/torneios" ).once( 'value').then(
@@ -48,6 +79,11 @@ export class TorneiosService {
     return value;
   }
 
+  /**
+   * Responsável por buscar os dados do torneio através da api
+   * do challonge
+   * @param id 
+   */
   async getTorneioId(id): Promise<any[]> {
     let value: any = [];
 
@@ -67,6 +103,11 @@ export class TorneiosService {
     return value;
   }
 
+  /**
+   * Responsável por salvar um novo torneio atraves da api do challonge
+   * @param nome 
+   * @param url 
+   */
   async salvar(nome, url): Promise<any> {
     let retorno = false;
 
@@ -90,7 +131,12 @@ export class TorneiosService {
     return retorno;
   }
 
-  async addParticipante(id, nome): Promise<any> {
+  /**
+   * Responsável por adicionar um participante a api do challonge
+   * @param id 
+   * @param nome 
+   */
+  async addParticipante(id, nome, key): Promise<any> {
     let retorno = false;
 
     this.url_api = '/v1/tournaments/' + id + '/participants.json'+
@@ -99,7 +145,7 @@ export class TorneiosService {
     await this.http.post(this.url_api, {}).toPromise().then(
       r => {
         //console.log(r);
-        this.salvarFirebaseParticipante(r);
+        this.salvarFirebaseParticipante(r, key);
         retorno = true;
       }
     ).catch(
@@ -112,6 +158,11 @@ export class TorneiosService {
     return retorno;
   }
 
+  /**
+   * Responsável por preparar e salvar os dados de retorno
+   * do torneio salvo na api do challonge
+   * @param v 
+   */
   private async salvarFirebase(v: any): Promise<any>{
     let ret = false;
 
@@ -134,17 +185,22 @@ export class TorneiosService {
     return ret;
   }
 
-  private async salvarFirebaseParticipante(v: any): Promise<any>{
+  /**
+   * Responsável por salvar os dados de retorno do participante
+   * adicionado via api do challonge
+   * @param v 
+   */
+  private async salvarFirebaseParticipante(v: any, key): Promise<any>{
     let ret = false;
 
     let dados = {
-      id: v.tournament.id,
-      nome:  v.tournament.name,
-      url: v.tournament.url,
-      link:  v.tournament.full_challonge_url
+      id: v.participant.id,
+      nome:  v.participant.name,
+      adicionado_em: v.participant.created_at,
+      ativo:  v.participant.active
     };
 
-    await this.db.list("usuarios/" + localStorage.token + "/torneios").push(dados).then(
+    await this.db.list("usuarios/" + localStorage.token + "/torneios/" + key + "/participantes").push(dados).then(
       r => {
         ret = true;
       },

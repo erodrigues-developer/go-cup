@@ -17,6 +17,7 @@ export class ListaTorneiosComponent implements OnInit {
   public selection = true;
 
   public idTorneio = "";
+  public keyTorneio = "";
   
   @Output()
   public idSetado = new EventEmitter();
@@ -52,14 +53,16 @@ export class ListaTorneiosComponent implements OnInit {
 
   public handleRowSelection(args) {
     const targetCell = args.cell as IgxGridCellComponent;
+    
     if (!this.selection) {
         this.grid1.selectRows([targetCell.row.rowID], true);
-        // console.log(targetCell.row);
     }
-    // console.log(targetCell.row.rowID.id);
+    
     this.idTorneio = targetCell.row.rowID.id;
     this.torneio.setIdTorneioSelecionado(this.idTorneio);
-    // console.log(this.idTorneio);
+
+    this.keyTorneio = targetCell.row.rowID.key;
+    this.torneio.setKeyTorneioSelecionado(this.keyTorneio);
 }
 
 }

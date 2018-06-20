@@ -12,6 +12,7 @@ import { IgxInputGroupComponent, IgxDialogComponent } from 'igniteui-angular/mai
 export class FormParticipantesComponent implements OnInit {
 
   public id;
+  public key;
   public nome;
   public participante;
 
@@ -30,6 +31,7 @@ export class FormParticipantesComponent implements OnInit {
   ngOnInit() {
     this.auth();
     this.setId();
+    this.setKey();
     this.get(this.id);
   }
   
@@ -48,12 +50,21 @@ export class FormParticipantesComponent implements OnInit {
   }
 
   /**
-   * Recebe o id da url e seta na propriedade da classe
+   * Recebe a key da url e seta na propriedade da classe
    * @author Erodrigues
    * @since 19/06/2018
    */
   setId() {
     this.id = this.route.snapshot.paramMap.get('id');
+  }
+
+  /**
+   * Recebe o id da url e seta na propriedade da classe
+   * @author Erodrigues
+   * @since 19/06/2018
+   */
+  setKey() {
+    this.key = this.route.snapshot.paramMap.get('key');
   }
 
   /**
@@ -72,6 +83,11 @@ export class FormParticipantesComponent implements OnInit {
 
   }
 
+  /**
+   * Responsável por receber a submissão do formulário,
+   * instanciar o service de torneios que irá persistir
+   * os dados na api e no firebase
+   */
   private async salvar() {
     if ( this.nome == "" || this.nome == null ||
         this.participante == "" || this.participante == null ){
@@ -84,7 +100,7 @@ export class FormParticipantesComponent implements OnInit {
 
     let r = false;
 
-    r = await this.torneio.addParticipante(this.id, this.participante);
+    r = await this.torneio.addParticipante(this.id, this.participante, this.key);
 
     if (r) {
       this.title = "Sucesso";

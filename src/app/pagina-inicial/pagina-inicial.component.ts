@@ -14,8 +14,8 @@ export class PaginaInicialComponent implements OnInit {
 
   sub: Subscription;
   
-  @Input()
   public idTorneio = "";
+  public keyTorneio = "";
 
   public navItems;
   public selected = "Avatar";
@@ -39,7 +39,13 @@ export class PaginaInicialComponent implements OnInit {
       r => {
         this.setIdTorneio(r);
       }
-    )    
+    );
+
+    this.sub = this.torneio.getKeyTorneioSelecionado().subscribe(
+      r => {
+        this.setKeyTorneio(r);
+      }
+    );
     this.setMenu();
   }
 
@@ -68,6 +74,10 @@ export class PaginaInicialComponent implements OnInit {
     }
   }
 
+  /**
+   * Setter ID
+   * @param id 
+   */
   setIdTorneio(id){
     
     this.idTorneio = id;
@@ -75,12 +85,27 @@ export class PaginaInicialComponent implements OnInit {
     this.setMenu();    
   }
 
+  /**
+   * Setter KEY
+   * @param key 
+   */
+  setKeyTorneio(key) {
+
+    this.keyTorneio = key;
+
+    this.setMenu();
+  }
+
+  /**
+   * Define as opções do Menu Sidebar
+   */
   setMenu(){
     this.navItems = [
       { name: "account_circle", text: localStorage['user'], route: "" },
       { name: "home", text: "Página Inicial", route: "/pagina-inicial" },
       { name: "games", text: "Criar Torneio", route: "/pagina-inicial/form-torneios" },
-      { name: "sentiment_very_satisfied", text: "Adicionar Participantes", route: "/pagina-inicial/form-participantes/" + this.idTorneio },
+      { name: "sentiment_very_satisfied", text: "Adicionar Participantes", 
+          route: "/pagina-inicial/form-participantes/" + this.idTorneio + "/" + this.keyTorneio },
       { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
       { name: "no_encryption", text: "Encerrar Incrições", route: "" },
       { name: "delete_forever", text: "Apagar Torneio", route: "" },

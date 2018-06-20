@@ -14,6 +14,7 @@
       <igx-grid #grid1 id="grid1" [data]="torneios" [autoGenerate]="false" [paging]="true" [perPage]="5" 
       [rowSelectable]="false" (onSelection)="handleRowSelection($event)">
         <igx-column field="id" header="Id" [sortable]="true"></igx-column>
+        <igx-column field="key" header="Key"></igx-column>
         <igx-column field="nome" header="Nome" [sortable]="true" [filterable]="true"></igx-column>
         <igx-column field="url" header="URL" [sortable]="true"></igx-column>
       </igx-grid>   
