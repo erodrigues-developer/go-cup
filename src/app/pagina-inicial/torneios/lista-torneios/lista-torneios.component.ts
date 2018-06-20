@@ -12,12 +12,15 @@ import { EventEmitter } from 'events';
   styleUrls: ['./lista-torneios.component.css']
 })
 export class ListaTorneiosComponent implements OnInit {
+
   @ViewChild("grid1")
   public grid1: IgxGridComponent;
+
   public selection = true;
 
   public idTorneio = "";
   public keyTorneio = "";
+  public url = "";
   
   @Output()
   public idSetado = new EventEmitter();
@@ -63,6 +66,12 @@ export class ListaTorneiosComponent implements OnInit {
 
     this.keyTorneio = targetCell.row.rowID.key;
     this.torneio.setKeyTorneioSelecionado(this.keyTorneio);
+
+    this.url = targetCell.row.rowID.url;
+}
+
+public abrirTorneio(args) {
+  this.rota.navigate(["/pagina-inicial/detalhe-torneio/" + this.url]);
 }
 
 }

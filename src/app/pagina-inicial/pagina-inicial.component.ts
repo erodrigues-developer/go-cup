@@ -60,6 +60,11 @@ export class PaginaInicialComponent implements OnInit {
     console.log(item.route);
 
     if (item.route != "/pagina-inicial/form-participantes/"){
+      if (item.route == "/pagina-inicial"){
+        window.location.href = "http://localhost:4200/pagina-inicial";
+        return false;
+      }
+
       this.rota.navigate([item.route]);
     }
   }
@@ -106,7 +111,6 @@ export class PaginaInicialComponent implements OnInit {
       { name: "games", text: "Criar Torneio", route: "/pagina-inicial/form-torneios" },
       { name: "sentiment_very_satisfied", text: "Adicionar Participantes", 
           route: "/pagina-inicial/form-participantes/" + this.idTorneio + "/" + this.keyTorneio },
-      { name: "sentiment_very_dissatisfied", text: "Excluir Participantes", route: "" },
       { name: "no_encryption", text: "Encerrar Incrições", route: "" },
       { name: "delete_forever", text: "Apagar Torneio", route: "" },
       { name: "casino", text: "Inserir Resultado Partida", route: "" },

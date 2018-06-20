@@ -1,3 +1,19 @@
-<p>
-  detalhe-torneio works!
-</p>
+<div class="container">
+    <div class="row justify-content-md-center" style="margin-bottom: 30px">
+      <div class="col-sm-12">
+        <igx-card style="width: 100px;">
+          <igx-card-header>
+            <h3 class="igx-card-header__title">Tabela do Torneio</h3>
+            <h5 class="igx-card-header__subtitle">Detalhe Torneio</h5>
+          </igx-card-header>
+        </igx-card>      
+      </div>
+    </div>
+    <div class="row justify-content-md-center" style="margin-bottom: 30px; height: 470px;">
+      <div class="col-sm-12">
+          <iframe [src]="safeURL" width="100%" height="470" 
+            frameborder="0" scrolling="auto" allowtransparency="true">
+          </iframe>
+      </div>
+    </div>
+  </div>

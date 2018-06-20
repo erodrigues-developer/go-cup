@@ -2,7 +2,11 @@
     font-weight: 600;
   }
   
-  .contact-phone {
-    font-size: 0.875em;
-  }
-  
+.contact-phone {
+  font-size: 0.875em;
+}
+igx-grid-cell > .ico-menu {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

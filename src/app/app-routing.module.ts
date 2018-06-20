@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'pagina-inicial', component: PaginaInicialComponent, children: [
     { path: '' , component: ListaTorneiosComponent },
-    { path: 'detalhe-torneio/:id', component: DetalheTorneioComponent },
+    { path: 'detalhe-torneio/:url', component: DetalheTorneioComponent },
     { path: 'form-torneios', component: FormTorneiosComponent },
     { path: 'form-participantes/:id/:key', component: FormParticipantesComponent }
     
